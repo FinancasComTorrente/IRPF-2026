@@ -391,7 +391,7 @@ function App() {
             </div>
           )}
 
-          {activeTab === 'contracheque' && (
+          {activeTab === 'contracheque' && perfilAtivo && (
             <form onSubmit={auditarContracheque}>
               <h2>Dados do Trabalhador</h2>
               <div className="intro-card">
@@ -437,7 +437,7 @@ function App() {
             </form>
           )}
 
-          {activeTab === 'simulacao' && (
+          {activeTab === 'simulacao' && perfilAtivo && (
             <form onSubmit={simularAnual}>
               <h2>Declaração de Ajuste Anual</h2>
               <div className="intro-card">
@@ -534,7 +534,7 @@ function App() {
             </form>
           )}
 
-          {activeTab === 'nf' && (
+          {activeTab === 'nf' && perfilAtivo && (
             <form onSubmit={auditarNf}>
               <h2>Dados da NFS-e</h2>
               <div className="intro-card">

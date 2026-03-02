@@ -110,7 +110,16 @@ class CalculadoraIRPF2025 {
             imposto_devido: Number(imposto_devido.toFixed(2)),
             imposto_restituir_ou_pagar: Number(resultado_financeiro.toFixed(2)),
             deducoes_totais: Number(deducoes.toFixed(2)),
-            mensagem_otimizacao: msg
+            mensagem_otimizacao: msg,
+            // Propriedades para tela dividida (Comparativo)
+            base_calculo_completa: Number(base_calculo_completa.toFixed(2)),
+            imposto_devido_completo: Number(imposto_completo.toFixed(2)),
+            imposto_restituir_ou_pagar_completo: Number(resultado_financeiro_completo.toFixed(2)),
+            deducoes_legais: Number(deducoes_legais.toFixed(2)),
+            base_calculo_simplificada: Number(base_calculo_simplificada.toFixed(2)),
+            imposto_devido_simplificado: Number(imposto_simplificado.toFixed(2)),
+            imposto_restituir_ou_pagar_simplificado: Number(resultado_financeiro_simplificado.toFixed(2)),
+            desconto_simplificado: Number(desconto_simplificado.toFixed(2))
         };
     }
 }

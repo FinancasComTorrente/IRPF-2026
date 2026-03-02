@@ -453,7 +453,7 @@ function App() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div className="form-group">
                   <label>INSS/Previdência Paga</label>
                   <div className="currency-input-wrapper">
@@ -470,7 +470,7 @@ function App() {
                 </div>
               </div>
 
-              <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-group" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div className="form-group">
                   <label>Saúde Ilimitada (R$)</label>
                   <span className="sub-label">*Somente consultas, hospitais e planos médicos. Gastos com farmácia não contam!*</span>
@@ -489,7 +489,7 @@ function App() {
                 </div>
               </div>
 
-              <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-group" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div className="form-group">
                   <label>
                     Depósitos em PGBL

@@ -101,6 +101,7 @@ function App() {
         imposto_retido_fonte: parseFloat(simRetido),
         inss_pago: parseFloat(simInss),
         dependentes: parseInt(simDependentes),
+        pensao_alimenticia_paga: 0.0,
         despesas_medicas: parseFloat(simSaude),
         despesas_educacao: parseFloat(simEducacao),
         contribuicao_pgbl: parseFloat(simPgbl),
@@ -285,7 +286,7 @@ function App() {
         `}
       </style>
       <div className="app-header hide-on-print" style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <img src="/logo-escrita.png" alt="Torrente Educação Financeira" style={{ maxWidth: '350px', marginBottom: '1rem', display: 'inline-block' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'block'; }} />
+        <img src={`${import.meta.env.BASE_URL}logo-escrita.png`} alt="Torrente Educação Financeira" style={{ maxWidth: '350px', marginBottom: '1rem', display: 'inline-block' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'block'; }} />
         <h1 style={{ margin: 0, display: 'none' }}>Auditoria Tributária</h1>
         <p className="subtitle" style={{ margin: 0 }}>Motor Inteligente ajustado para regras IRPF 2025 e LC 123/06</p>
       </div>
@@ -607,7 +608,7 @@ function App() {
             <div className="report-box">
               <div className="watermark"></div>
               <div className="print-only premium-print-header">
-                <img src="/logo-escrita.png" alt="Torrente Educação Financeira" className="print-logo" />
+                <img src={`${import.meta.env.BASE_URL}logo-escrita.png`} alt="Torrente Educação Financeira" className="print-logo" />
                 <div className="print-header-text">
                   <h2>Parecer Técnico</h2>
                   <p>Auditoria Tributária e Elisão Fiscal</p>

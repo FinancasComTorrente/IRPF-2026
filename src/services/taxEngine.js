@@ -221,6 +221,57 @@ class AuditorFiscal {
         }
     }
 
+    auditar_contracheque(dados) {
+        if (dados.irrf_informado === undefined || dados.irrf_informado === null) {
+            throw new Error("Para auditar um contracheque, o campo 'irrf_informado' deve ser fornecido.");
+        }
+
+        // Logica para calcular IRPF
+        let deducoes_legais = dados.inss_retido + dados.pensao_alimenticia + dados.outras_deducoes + (dados.dependentes * this.irpf_calc.VALOR_DEPENDENTE);
+
+        let usar_simplificado = this.irpf_calc.DESCONTO_SIMPLIFICADO_MENSAL > deducoes_legais;
+        let deducao_aplicada = usar_simplificado ? this.irpf_calc.DESCONTO_SIMPLIFICADO_MENSAL : deducoes_legais;
+        let tipo_deducao = usar_simplificado ? "Simplificada" : "Legal";
+
+        let base_calculo_mensal = dados.salario_bruto - deducao_aplicada;
+
+        // Calcular pela tabela
+        let imposto_apurado = 0.0;
+        for (let [limite, aliquota, parcela_deduzir] of this.irpf_calc.FAIXAS) {
+            if (base_calculo_mensal <= limite) {
+                let imposto = (base_calculo_mensal * aliquota) - parcela_deduzir;
+                imposto_apurado = Math.max(0.0, imposto);
+                break;
+            }
+        }
+
+        let rendimento_tributavel = dados.salario_bruto;
+        let reducao = 0.0;
+
+        if (rendimento_tributavel <= 5000.00) {
+            reducao = Math.min(imposto_apurado, 312.89);
+        } else if (rendimento_tributavel <= 7350.00) {
+            let reducao_calc = 978.62 - (0.133145 * rendimento_tributavel);
+            reducao = Math.max(0.0, Math.min(imposto_apurado, reducao_calc));
+        }
+
+        let imposto_devido = imposto_apurado - reducao;
+
+        let [diff, status, msg] = this._avaliar_diferenca(dados.irrf_informado, imposto_devido);
+        let diferenca_anual = Number((diff * 12).toFixed(2));
+
+        return {
+            documento_tipo: "Contracheque (IRPF 2025)",
+            imposto_informado: dados.irrf_informado,
+            imposto_calculado: Number(imposto_devido.toFixed(2)),
+            diferenca: diff,
+            diferenca_anual: diferenca_anual,
+            status: status,
+            mensagem: `${msg} | Base de Cálculo: ${Number(base_calculo_mensal.toFixed(2))} | Tipo Dedução: ${tipo_deducao}`
+        };
+    }
+
+
     simular_ajuste_anual(dados) {
         return this.irpf_calc.simular_ajuste_anual(dados);
     }

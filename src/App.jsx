@@ -597,7 +597,8 @@ function App() {
 
           {errorServer && (
             <div style={{ color: 'var(--danger-color)', textAlign: 'center', marginTop: '2rem', padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px' }}>
-              <strong>Erro de Conexão:</strong> O motor de cálculo Python (API) não está rodando. Por favor, levante a porta 8000.
+              <strong>Falha no Cálculo:</strong> Ocorreu um erro interno ao processar os dados tributários.<br />
+              Por favor, verifique os valores informados ou tente novamente.
             </div>
           )}
 

@@ -715,7 +715,7 @@ function App() {
                         <span className="data-label">Comparativo de Cenários</span>
                       </div>
 
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
+                      <div className="form-grid-2col" style={{ marginTop: '1rem' }}>
                         {/* Card Simplificada */}
                         <div style={{
                           background: report.tipo_declaracao === 'Simplificada' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(255, 255, 255, 0.03)',

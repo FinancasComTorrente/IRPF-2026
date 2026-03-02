@@ -52,6 +52,10 @@ body {
   padding: 2rem;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  overflow: hidden;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .glass-panel:hover {
@@ -332,7 +336,8 @@ button:disabled {
 /* Tabs */
 .tabs {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-bottom: 2rem;
   background: rgba(0, 0, 0, 0.2);
   padding: 0.5rem;

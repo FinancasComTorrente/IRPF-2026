@@ -200,7 +200,7 @@ button:disabled {
 
 /* --- LEAD CAPTURE MODAL (PAYWALL) --- */
 .lead-modal-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -212,7 +212,8 @@ button:disabled {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  border-radius: 16px;
+  border-radius: 0;
+  /* Changed from 16px to 0 for full overlay */
   animation: fadeIn 0.3s ease-out forwards;
 }
 

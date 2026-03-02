@@ -5,7 +5,8 @@ import { sendLeadEmail } from './services/emailService'
 import './index.css'
 
 function App() {
-  const [activeTab, setActiveTab] = useState('contracheque')
+  const [activeTab, setActiveTab] = useState('simulacao')
+  const [perfilAtivo, setPerfilAtivo] = useState(null) // null = tela inicial, 'pf' = Pessoa Física, 'pj' = Pessoa Jurídica
 
   // States - Contracheque
   const [vinculo, setVinculo] = useState('clt')
@@ -285,35 +286,110 @@ function App() {
           }
         `}
       </style>
-      <div className="app-header hide-on-print" style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <img src="/logo-escrita.png" alt="Torrente Educação Financeira" style={{ maxWidth: '350px', marginBottom: '1rem', display: 'inline-block' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'block'; }} />
+      <div className="app-header hide-on-print" style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '0 1rem' }}>
+        <img src="/logo-escrita.png" alt="Torrente Educação Financeira" style={{ maxWidth: '280px', width: '80%', marginBottom: '0.5rem', display: 'inline-block' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'block'; }} />
         <h1 style={{ margin: 0, display: 'none' }}>Auditoria Tributária</h1>
-        <p className="subtitle" style={{ margin: 0 }}>Motor Inteligente ajustado para regras IRPF 2025 e LC 123/06</p>
+        <p className="subtitle" style={{ margin: 0, fontSize: '0.9rem' }}>Motor Inteligente ajustado para regras IRPF 2025 e LC 123/06</p>
       </div>
       <div className="grid-container">
         {/* Painel Esquerdo: Formulário */}
         <div className="glass-panel">
 
-          <div className="tabs">
-            <div
-              className={`tab ${activeTab === 'contracheque' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('contracheque'); setReport(null); setErrorServer(false) }}
-            >
-              Holerite Mês
+          {/* TELA INICIAL: Escolha de Perfil */}
+          {!perfilAtivo && (
+            <div style={{ textAlign: 'center', padding: '1rem 0' }}>
+              <h2 style={{ marginBottom: '0.5rem' }}>Bem-vindo(a)! 👋</h2>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.95rem' }}>
+                Selecione o seu perfil para começar a análise tributária:
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div
+                  onClick={() => { setPerfilAtivo('pf'); setActiveTab('simulacao'); setReport(null); }}
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(96,165,250,0.15), rgba(167,139,250,0.15))',
+                    border: '1px solid rgba(96,165,250,0.4)',
+                    borderRadius: '12px',
+                    padding: '1.5rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>👤</div>
+                  <h3 style={{ margin: '0 0 0.5rem 0', color: '#60a5fa' }}>Pessoa Física</h3>
+                  <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.85rem' }}>IRPF, Elisão Fiscal e Auditoria de Holerite</p>
+                </div>
+                <div
+                  onClick={() => { setPerfilAtivo('pj'); setActiveTab('nf'); setReport(null); }}
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(208,167,71,0.15), rgba(251,191,36,0.1))',
+                    border: '1px solid rgba(208,167,71,0.4)',
+                    borderRadius: '12px',
+                    padding: '1.5rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🏢</div>
+                  <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--accent-color)' }}>Pessoa Jurídica</h3>
+                  <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.85rem' }}>IRPJ, Simples Nacional e Planejamento Tributário</p>
+                </div>
+              </div>
             </div>
-            <div
-              className={`tab ${activeTab === 'simulacao' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('simulacao'); setReport(null); setErrorServer(false) }}
-            >
-              Ajuste Anual (Elisão)
+          )}
+
+          {/* ABAS: Pessoa Física */}
+          {perfilAtivo === 'pf' && (
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                <button
+                  type="button"
+                  onClick={() => { setPerfilAtivo(null); setReport(null); }}
+                  style={{ background: 'none', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '0.3rem 0.7rem', fontSize: '0.8rem', cursor: 'pointer', color: 'var(--text-secondary)', width: 'auto', marginTop: 0 }}
+                >← Voltar</button>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>👤 Pessoa Física</span>
+              </div>
+              <div className="tabs">
+                <div
+                  className={`tab ${activeTab === 'simulacao' ? 'active' : ''}`}
+                  onClick={() => { setActiveTab('simulacao'); setReport(null); setErrorServer(false) }}
+                >
+                  IRPF 2026
+                </div>
+                <div
+                  className={`tab ${activeTab === 'contracheque' ? 'active' : ''}`}
+                  onClick={() => { setActiveTab('contracheque'); setReport(null); setErrorServer(false) }}
+                >
+                  Holerite Mensal
+                </div>
+              </div>
             </div>
-            <div
-              className={`tab ${activeTab === 'nf' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('nf'); setReport(null); setErrorServer(false) }}
-            >
-              Pessoa Jurídica
+          )}
+
+          {/* ABAS: Pessoa Jurídica */}
+          {perfilAtivo === 'pj' && (
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                <button
+                  type="button"
+                  onClick={() => { setPerfilAtivo(null); setReport(null); }}
+                  style={{ background: 'none', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '0.3rem 0.7rem', fontSize: '0.8rem', cursor: 'pointer', color: 'var(--text-secondary)', width: 'auto', marginTop: 0 }}
+                >← Voltar</button>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>🏢 Pessoa Jurídica</span>
+              </div>
+              <div className="tabs">
+                <div
+                  className={`tab ${activeTab === 'nf' ? 'active' : ''}`}
+                  onClick={() => { setActiveTab('nf'); setReport(null); setErrorServer(false) }}
+                >
+                  IRPJ 2026
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
           {activeTab === 'contracheque' && (
             <form onSubmit={auditarContracheque}>
